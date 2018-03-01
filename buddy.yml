@@ -1,0 +1,28 @@
+- pipeline: "dropwizard"
+  trigger_mode: "MANUAL"
+  ref_name: "master"
+  actions:
+  - action: "Execute: cd dropwizard-example"
+    type: "BUILD"
+    disabled: true
+    working_directory: "/buddy/dropwizard"
+    docker_image_name: "library/ubuntu"
+    docker_image_tag: "16.04"
+    execute_commands:
+    - "cd dropwizard-example"
+    mount_filesystem_path: "/buddy/dropwizard"
+    shell: "BASH"
+    trigger_condition: "ALWAYS"
+  - action: "Execute: mvn package"
+    type: "BUILD"
+    working_directory: "/buddy/dropwizard"
+    docker_image_name: "library/maven"
+    docker_image_tag: "3.3.3"
+    execute_commands:
+    - "cd dropwizard-example"
+    - "mvn package"
+    cached_dirs:
+    - "/root/.m2/repository"
+    mount_filesystem_path: "/buddy/dropwizard"
+    shell: "BASH"
+    trigger_condition: "ALWAYS"
