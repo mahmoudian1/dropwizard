@@ -2,3 +2,6 @@ language: java
 sudo: false
 before_script: cd dropwizard-example
 script: mvn package
+cache:
+  directories:
+    - $HOME/.m2
